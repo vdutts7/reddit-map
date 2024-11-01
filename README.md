@@ -171,10 +171,12 @@ Progress: 99.4% (5900/5936 comments processed)
 Completed! Total comments fetched: 5936
 Comments saved to reddit_comments_1730443051.csv
 ```
+Demo: https://atlas.nomic.ai/data/auth0thread765/reddit-dataset
 
 <video width="100%" controls>
   <source src="public/reddit-map.mp4" type="video/mp4">
 </video>
+
 
 ## 🔧Tools Used
 
