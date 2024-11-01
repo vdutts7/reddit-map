@@ -17,12 +17,17 @@ def scrape_reddit_comments(reddit: praw.Reddit, submission: praw.models.reddit.s
     current_attempt = 0
     while current_attempt < max_attempts:
         try:
+            print("Loading comments...")
             # Load all comments at once
             submission.comments.replace_more(limit=None)
             comments = []
             
+            # Get total number of comments for progress tracking
+            total_comments = len(submission.comments.list())
+            print(f"Found {total_comments} comments to process")
+            
             # Use comment_forest's list() method to get all comments at once
-            for comment in submission.comments.list():
+            for index, comment in enumerate(submission.comments.list(), 1):
                 comment_data = {
                     'text': comment.body,
                     'author': comment.author.name if comment.author else '[deleted]',
@@ -31,8 +36,13 @@ def scrape_reddit_comments(reddit: praw.Reddit, submission: praw.models.reddit.s
                     'created_utc': comment.created_utc
                 }
                 comments.append(comment_data)
+                
+                # Print progress every 100 comments
+                if index % 100 == 0:
+                    progress = (index / total_comments) * 100
+                    print(f"Progress: {progress:.1f}% ({index}/{total_comments} comments processed)")
             
-            print(f"Number of comments fetched: {len(comments)}")
+            print(f"Completed! Total comments fetched: {len(comments)}")
             return comments
             
         except PrawcoreException as e:
