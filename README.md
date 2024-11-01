@@ -6,8 +6,8 @@
 <div align="center">
 
 
-  <img src="public/btc.png" alt="Bitcoin Logo" width="80" height="80" />
-  <img src="public/node-js.png" alt="Node.js Logo" width="" height="67"/>
+  <img src="public/reddit.png" alt="Reddit Logo" width="80" height="80" />
+  <img src="public/obama.png" alt="Obama" width="" height="67"/>
 
   <h1 align="center">
         Visual Map | Reddit comments
