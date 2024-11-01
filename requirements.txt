@@ -2,3 +2,4 @@ pandas
 pyarrow
 praw
 nomic
+python-dotenv
