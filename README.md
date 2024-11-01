@@ -1,8 +1,3 @@
-# Mapping Reddit comments
-
-
-
-
 <div align="center">
 
 
@@ -19,6 +14,8 @@
 
 [![Github][github]][github-url]
 
+
+  <img src="public/map.png" alt="Reddit Logo" width="200" height="" />
 
 </div>
 
@@ -38,6 +35,7 @@
 
 <br/>
 
+
 ## 💸FREE 200 USD cloud credits
 
 Click the banner to activate $200 free personal cloud credits on DigitalOcean (deploy anything).
@@ -53,22 +51,22 @@ Click the banner to activate $200 free personal cloud credits on DigitalOcean (d
 
 
 ## 📝About
-- how to automate the extraction, processing, and mapping of Reddit comments using Python and Nomic Atlas
-- use the Reddit API to fetch comments from a Reddit post URL
-- store the data in Nomic Atlas
-- create an Atlas map on the dataset to produce a visualization
+- How to automate the extraction, processing, and mapping of Reddit comments using Python and Nomic Atlas
+- Use the Reddit API to fetch comments from a Reddit post URL
+- Store the data in Nomic Atlas
+- Create an Atlas map on the dataset to produce a visualization
 
 
 ## 💻How to build
 
 
-### Setup:
+### 1. Setup:
 ```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-### Environemnt variables
+### 2. Environemnt variables
 
 Get your Reddit developer credentials: https://www.reddit.com/prefs/apps 
 ```
@@ -77,13 +75,35 @@ REDDIT_CLIENT_SECRET=<your_client_secret>
 REDDIT_USER_AGENT=<your_user_agent>
 ```
 
-Run the script:
+### 3. Data Collection
+
+Run the script to collect Reddit comments:
 ```
 python reddit.py
 ```
 
 
-Example:
+The script will:
+- Prompt for a Reddit post URL
+- Extract all comments recursively
+- Show real-time progress
+- Save data to a CSV file
+
+### 4. Data Processing
+The script automatically:
+- Extracts comment metadata (author, score, timestamp)
+- Handles nested comment structures
+- Implements rate limiting and error handling
+- Saves processed data in a structured format
+
+### 5. Visualization
+After data collection, the comments are visualized using Nomic Atlas:
+- Creates semantic embeddings of comments
+- Generates interactive 2D/3D visualizations
+- Clusters similar comments together
+- Allows exploration of comment relationships
+
+### Example Output
 ```
 (venv) (base) vdutts7@Vacbook-Vro reddit-map % python reddit.py             
 Enter Reddit post URL: https://www.reddit.com/r/pics/comments/5bx4bx/thanks_obama/
@@ -152,12 +172,16 @@ Completed! Total comments fetched: 5936
 Comments saved to reddit_comments_1730443051.csv
 ```
 
+<video width="100%" controls>
+  <source src="public/reddit-map.mp4" type="video/mp4">
+</video>
 
 ## 🔧Tools Used
 
-[![TypeScript][typescript]][typescript-url]
-[![Node.js][nodejs]][nodejs-url]
-[![Crypto][crypto]][crypto-url]
+[![Python][python]][python-url]
+[![PRAW][praw]][praw-url]
+[![Pandas][pandas]][pandas-url]
+[![Nomic][nomic]][nomic-url]
 
 ## 👤Contact
 
@@ -168,12 +192,14 @@ Comments saved to reddit_comments_1730443051.csv
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
-[typescript-url]: https://www.typescriptlang.org/
-[nodejs]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
-[nodejs-url]: https://nodejs.org/
-[crypto]: https://img.shields.io/badge/Crypto-000000?style=for-the-badge&logo=node.js&logoColor=white
-[crypto-url]: https://nodejs.org/api/crypto.html
+[python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
+[python-url]: https://www.python.org/
+[praw]: https://img.shields.io/badge/PRAW-ff4301?style=for-the-badge&logo=reddit&logoColor=white
+[praw-url]: https://praw.readthedocs.io/
+[pandas]: https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white
+[pandas-url]: https://pandas.pydata.org/
+[nomic]: https://img.shields.io/badge/Nomic_Atlas-000000?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAAAEGNhZ3BhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjY3NjM0QTY5NzNFMTFFNUI2QUQ4NTY1OTg1QTRFMUQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjY3NjM0QTc5NzNFMTFFNUI2QUQ4NTY1OTg1QTRFMUQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjc2MzRBNDk3M0UxMUU1QjZBRDg1NjU5ODVBNEUxRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjc2MzRBNTk3M0UxMUU1QjZBRDg1NjU5ODVBNEUxRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg==
+[nomic-url]: https://atlas.nomic.ai/
 [email]: https://img.shields.io/badge/me@vd7.io-FFCA28?style=for-the-badge&logo=Gmail&logoColor=00bbff&color=black
 [email-url]: #
 [github]: https://img.shields.io/badge/💻Github-000000?style=for-the-badge
