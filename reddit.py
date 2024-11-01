@@ -79,3 +79,51 @@ def comments_to_arrow_table(comments: list) -> pa.Table:
     df = pd.DataFrame(comments)
     arrow_table = pa.Table.from_pandas(df)
     return arrow_table
+
+
+def main():
+    # Function to automate Reddit comment mapping with Nomic Atlas
+
+    # Retrieve Reddit API credentials and Nomic API key from environment variables
+    client_id = os.getenv('REDDIT_CLIENT_ID')
+    client_secret = os.getenv('REDDIT_CLIENT_SECRET')
+    user_agent = os.getenv('REDDIT_USER_AGENT')
+    reddit_url = input("Enter Reddit post URL: ")
+    nomic_api_key = os.getenv('NOMIC_API_KEY')
+
+    # Initialize Reddit instance
+    reddit = get_reddit_instance(client_id, client_secret, user_agent)
+    submission = reddit.submission(url=reddit_url)
+
+    # Scrape Reddit comments
+    comments = scrape_reddit_comments(reddit, submission)
+    arrow_table = comments_to_arrow_table(comments)
+
+    try:
+        map_name = f"[Reddit Comment Thread] {submission.title}"  
+
+        # Map data using Nomic Atlas
+        dataset = atlas.map_data(data=arrow_table,
+                                 indexed_field='text',
+                                 description='Reddit comments mapped via automation.',
+                                 topic_model=True,
+                                 identifier=map_name)
+        if dataset and 'id' in dataset:
+            print("Map created on Atlas with ID:", dataset['id'])
+            print("All done! Visit the map link to see the status of your map build.")
+        else:
+            print("Map creation failed. Dataset ID not found in response.")
+    except Exception as e:
+        print(f"An error occurred while building map on Atlas: {e}")
+
+def get_reddit_instance(client_id: str, client_secret: str, user_agent: str) -> praw.Reddit:
+    # Function to create a Reddit instance
+    reddit = praw.Reddit(
+        client_id=client_id,
+        client_secret=client_secret,
+        user_agent=user_agent
+    )
+    return reddit
+
+if __name__ == "__main__":
+    main()
